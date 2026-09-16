@@ -32,29 +32,52 @@ define goal → check latest + read official source → outline lessons
 
 ## 安装 · Install
 
-把它放到 Cursor 的 Agent Store 个人 skills 目录下即可：
+一个 skill 仓库，可在任何支持 Agent Skills 标准的 agent 里一键安装（Cursor、Codex、Copilot、Gemini CLI、Claude Code、WorkBuddy 等）。
 
-Copy this folder into your Cursor Agent Store's personal `skills/` directory:
+Install in one command on any agent that supports the Agent Skills open standard (Cursor, Codex, Copilot, Gemini CLI, Claude Code, WorkBuddy, etc.).
 
-```text
-AgentStores/cursor_agent_stores/<你的 user id>/files/skills/study-wingman/
+### 方式 1 · GitHub CLI（推荐 · Recommended）
+
+```bash
+gh skill install WilliamStellaAI/study-wingman --agent cursor --scope user
 ```
 
-放好后，在新会话里说「陪我学 React / 带我过一遍 LangGraph / 我想学会 Docker」等，即可触发。
+把 `--agent cursor` 换成 `codex` / `claude-code` / `github-copilot` / `gemini-cli` 等即可装到对应 agent；`--scope project` 则装进当前项目。
 
-Once in place, start a new session and say "walk me through React" / "teach me LangGraph" / "help me truly understand Docker".
+Swap `--agent cursor` for `codex` / `claude-code` / `github-copilot` / `gemini-cli` etc.; use `--scope project` to install into the current repo.
+
+### 方式 2 · skills.sh（npm 式 · npm-style）
+
+```bash
+npx skills add WilliamStellaAI/study-wingman --agent cursor
+```
+
+### 方式 3 · 手动 clone（Manual）
+
+```bash
+git clone https://github.com/WilliamStellaAI/study-wingman ~/.cursor/skills/study-wingman
+```
+
+装好后，在新会话里说「陪我学 React / 带我过一遍 LangGraph / 我想学会 Docker」等即可触发。
+
+Once installed, start a new session and say "walk me through React" / "teach me LangGraph" / "help me truly understand Docker".
 
 ## 文件 · Files
 
-| 文件 | 说明 |
-|------|------|
-| `SKILL.md` | 主流程：备课、怎么讲、怎么出题、怎么批改（红线）、实验环节、收束 |
-| `examples.md` | 一次真实陪读课的批改样例（讲 → 答 → 批 → 掌握度表 → 预告） |
+```text
+.
+├── README.md
+├── LICENSE
+└── skills/
+    └── study-wingman/
+        ├── SKILL.md       # 主流程：备课、怎么讲、怎么出题、怎么批改（红线）、实验、收束
+        └── examples.md    # 一次真实陪读课的批改样例
+```
 
 | File | Description |
 |------|-------------|
-| `SKILL.md` | Main flow: prep, how to teach, how to quiz, how to grade (hard rules), lab, wrap-up |
-| `examples.md` | A real graded session as a reference (teach → answer → grade → mastery table → preview) |
+| `skills/study-wingman/SKILL.md` | Main flow: prep, how to teach, how to quiz, how to grade (hard rules), lab, wrap-up |
+| `skills/study-wingman/examples.md` | A real graded session as a reference |
 
 ## License
 
