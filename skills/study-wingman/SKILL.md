@@ -1,19 +1,25 @@
 ---
-name: study-wingman
 description: >-
-  陪读式学习方法（讲概念 → 出题 → 批改 → 过关推进 → 最小实验）。把用户要学的新知识、新框架、新概念拆成小课，
-  逐课讲解后出 3-4 道自测题，逐题判定「过 / 需改」并收紧用词，过关才推进下一课；概念收束后写一个与业务无关的最小实验让用户亲手验证。
-  Use when the user asks to systematically learn, study, or be walked through a new framework, concept, or topic
-  (e.g. "陪我学 XX / 系统学习 XX / 带我过一遍 XX / walk me through X / teach me X / help me truly understand X").
-  A guided-study method: explain → quiz → grade → advance only on pass → hands-on mini-lab.
+  陪读式学习（讲概念 → 出题 → 批改 → 过关推进 → 最小实验）与学完后的成果呈现。
+  过关收束后先让用户选择：仅本地学习笔记 HTML，或对外发布静态简报；未选择前不产出、不部署。
+  Use when the user asks to systematically learn / study / be walked through a topic
+  (陪我学 / 系统学习 / 带我过一遍 / teach me / walk me through), or after study wants a
+  learning brief / 学习笔记 / Paper Lab / 对外发布学习成果.
+metadata:
+    github-path: skills/study-wingman
+    github-ref: refs/heads/main
+    github-repo: https://github.com/WilliamStellaAI/study-wingman
+    github-tree-sha: 82c5278d91f062ab3653a26c9988817fa80b98ee
+name: study-wingman
 ---
-
 # Study Wingman（陪读式学习）
 
-把「学会一个新知识」做成刻意练习：小步讲概念 → 即时出题 → 即时批改 → 硬门槛过关 → 动手实验。
-默认只为「系统学习」服务，不顺手改生产代码、不扩 scope。
+把「学会一个新知识」做成刻意练习：小步讲概念 → 即时出题 → 即时批改 → 硬门槛过关 → 动手实验；
+学完后可选把掌握内容固化为**学习成果**（本地笔记页或对外简报），形态由用户选择，不默认任何一种。
 
-Turn learning into deliberate practice: small-step explanation → immediate quiz → immediate grading → hard gate before advancing → hands-on lab. Serves systematic learning only; never edits production code or expands scope on the side.
+Turn learning into deliberate practice: explain → quiz → grade → advance on pass → hands-on lab;
+after wrap-up, optionally solidify outcomes as a learning artifact (local notes page or public brief)—
+**user chooses the mode; never assume.**
 
 ## 何时用 / 何时不用 · When to use
 
@@ -34,15 +40,18 @@ Turn learning into deliberate practice: small-step explanation → immediate qui
 ```text
 1 定学习靶心 → 2 查最新 + 精读官方/权威真源 → 3 规划课纲（分几课、每课主题与验收点）
    → 4 逐课讲 → 5 出 3-4 道自测 → 6 你答 → 7 逐题批改 → 过了进下一课
-   → 8 概念课收束 → 9 写最小实验，你亲手跑 → 10 复盘掌握度 → 再定下一步
+   → 8 概念课收束 → 9 写最小实验，你亲手跑 → 10 复盘掌握度
+   → 11 成果呈现（先选形态，再动手）→ 再定下一步
 ```
 
-1 define goal → 2 check latest + read authoritative sources → 3 outline lessons (topics + acceptance criteria)
-→ 4 teach lesson by lesson → 5 ask 3-4 questions → 6 learner answers → 7 grade each → advance on pass
-→ 8 wrap up concepts → 9 build a hands-on mini-lab → 10 review mastery → decide next step
+1 define goal → 2 check latest + read authoritative sources → 3 outline lessons
+→ 4 teach → 5 quiz → 6 answer → 7 grade → advance on pass
+→ 8 wrap concepts → 9 mini-lab → 10 review mastery
+→ 11 outcome presentation (**choose mode first**) → decide next step
 
 - 每一步的推进条件都是：**上一课自测全部通过**。Advance only when the previous lesson's quiz is fully passed.
-- 学习期间不落地、不写产品代码；实验脚本与业务无关、放独立目录。No product code during study; lab scripts stay product-independent in their own directory.
+- 学习期间（步骤 1–10）不落地产品代码、不写对外站；实验脚本与业务无关、放独立目录。
+  During steps 1–10: no product code, no public site; lab scripts stay product-independent.
 
 ## 备课（动手讲之前：先查最新、先规划、再开讲）· Prep
 
@@ -91,8 +100,63 @@ Turn learning into deliberate practice: small-step explanation → immediate qui
 ## 收束 · Wrap-up
 
 - 概念课收束时，列一份「你现在应能复述」的要点清单，让用户确认掌握度。List the points the learner should now be able to restate; confirm mastery.
-- 学完后由**用户**决定下一步（适配 / 落地 / 换目标），不替用户下结论。Let the user decide next steps (adapt / build / new goal) — don't conclude for them.
+- 收束后进入 **成果呈现选择**（见下）；用户也可明确说「先到这 / 不要笔记页」而结束。
+  After wrap-up, offer **outcome-mode choice** (below); user may also stop without an artifact.
+
+## 成果呈现 · Outcome presentation（学完可选）
+
+目的：把已过关内容收成一份可读的学习笔记 / 简报，而不是另开一条「建站流水线」。  
+Goal: solidify what was learned into a readable brief—not a separate site-factory by default.
+
+### 选择门（未选不动手）
+
+复盘掌握度之后，用一两句话让用户选，**停等拍板**：
+
+| 选项 | 含义 |
+|---|---|
+| **A · 仅本地** | 产出可本机打开的 HTML（或用户指定的本地路径）；不上线、不配域名 |
+| **B · 对外发布** | 用户有（或打算准备）托管与域名，要把学习成果公开或给他人看 |
+| **C · 先不要** | 本轮到此结束 |
+
+硬闸：
+
+```text
+❌ 未获选择就默认本地 HTML 或默认上线
+❌ 学习未收束（或用户未跳过实验/收束）就做成果页
+❌ 把成果呈现做成另一套陪读流程
+✅ 先选 A / B / C → 再按对应流程事项推进
+```
+
+### A · 仅本地（流程事项）
+
+按事项推进即可，细节随用户环境调整：
+
+1. **收敛文稿**：问题 → 方法要点 → 流程/机制 → 边界与收获（来自本轮过关内容，不另编）
+2. **选定落盘位置**：用户指定目录；未指定则征求后再写
+3. **产出静态页**：至少一份可双击 / 本地服务打开的 HTML
+4. **本机验收**：以用户本机打开为准；改文案/版式须用户说了再改
+
+### B · 对外发布（流程事项）
+
+具体厂商命令与 DNS 字段会随用户栈变化；此处只固定**事项顺序**，不写死某家平台的操作细则。  
+更细的核对清单见 [outcomes.md](outcomes.md)。
+
+1. **确认发布意图与范围**：公开对象、是否用已有域名/子域、是否已有托管账号
+2. **收敛对外文稿**：正式陈述；避免「不是…而是…」类句式；标题不夹口语解释
+3. **产出静态产物**：与本地路径相同的内容基线，再进入托管
+4. **选定托管**：用户已有偏好则跟偏好；没有则列出常见静态托管选项供其选，不擅自开通
+5. **域名与 HTTPS**：若用户要自定义域——解析、证书、生效等待；无则用托管方默认域名
+6. **上线与验收**：以用户浏览器打开目标 URL 为准；未授权不部署
+7. **定稿打磨**：按用户反馈改宽度、文案语气、章节标题等（一次一条）
+
+若用户有自家品牌线（如 Paper Lab 子域、既有参考站），在事项 1/4/5 对齐其命名与观感即可，**不把某一域名写成全局默认**。
+
+### 与学习阶段的边界
+
+- 步骤 1–10 仍只服务「学会」；成果呈现是收束后的可选延伸。
+- 用户中途说「学完直接发 Paper Lab / 只要本地笔记」→ 可提前记下偏好，但仍须在收束后口头确认一次再动手。
 
 ## 参考 · Reference
 
 - 批改语气与格式的完整样例：[examples.md](examples.md)
+- 成果呈现（本地 / 对外）事项清单：[outcomes.md](outcomes.md)
